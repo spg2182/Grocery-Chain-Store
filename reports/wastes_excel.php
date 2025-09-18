@@ -5,36 +5,30 @@ include_once __DIR__ . '/../includes/db.php';
 include_once __DIR__ . '/../includes/functions.php';
 // فعلاً خروجی ساده برای تست
 header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
-header("Content-Disposition: attachment; filename=returns.xls");
+header("Content-Disposition: attachment; filename=wastes.xls");
 echo "\xEF\xBB\xBF"; // BOM UTF-8
 ?>
 <table border="1">
     <thead>
         <tr>
             <th>کالا</th>
-            <th>مشتری</th>
             <th>تعداد</th>
-            <th>مبلغ</th>
-            <th>وضعیت</th>
+            <th>دلیل</th>
+            <th>شعبه</th>
+            <th>ثبت‌کننده</th>
             <th>تاریخ</th>
         </tr>
     </thead>
     <tbody>
-        <?php $total = 0; ?>
         <?php foreach ($data as $row): ?>
             <tr>
                 <td><?= $row['product_name'] ?></td>
-                <td><?= $row['full_name'] ?></td>
                 <td><?= $row['quantity'] ?></td>
-                <td><?= $row['refund_amount'] ?></td>
-                <td><?= $row['status'] ?></td>
+                <td><?= $row['reason'] ?></td>
+                <td><?= $row['branch_name'] ?></td>
+                <td><?= $row['created_by_name'] ?></td>
                 <td><?= mds_date('Y/m/d H:i', strtotime($row['created_at'])) ?></td>
             </tr>
-            <?php $total += $row['refund_amount']; ?>
         <?php endforeach; ?>
-        <tr>
-            <th colspan="3">جمع کل مرجوعی</th>
-            <th colspan="3"><?= $total ?></th>
-        </tr>
     </tbody>
 </table>
